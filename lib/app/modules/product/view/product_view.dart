@@ -4,6 +4,7 @@ import 'package:simple_app/app/modules/product/controlers/product_controller.dar
 
 class ProductView extends StatelessWidget {
   final ProductController productController = Get.put(ProductController());
+
   ProductView({super.key});
 
   @override
@@ -11,6 +12,14 @@ class ProductView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Products"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              Get.toNamed('/cart');
+            },
+          )
+        ],
       ),
       body: Obx(() {
         return ListView.builder(
@@ -21,7 +30,7 @@ class ProductView extends StatelessWidget {
                 title: Text(product.name),
                 subtitle: Text("\$${product.price}"),
                 onTap: () {
-                  Get.toNamed('/product-details',arguments: product);
+                  Get.toNamed('/product-details', arguments: product);
                 },
               );
             });
