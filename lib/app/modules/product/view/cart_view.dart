@@ -61,12 +61,32 @@ class CartView extends StatelessWidget {
             }),
           ),
           Obx(() {
-            return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                "Total: \$${cartController.totalPrice.value.toStringAsFixed(2)}",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+            if (cartController.cartItems.isEmpty) return SizedBox.shrink();
+
+            return Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    "Total: \$${cartController.totalPrice.value.toStringAsFixed(2)}",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    onPressed: () {
+                      Get.offAllNamed('/checkout');
+                    },
+                    child: Text("CHECKOUT"),
+                  ),
+                ),
+                SizedBox(height: 16),
+              ],
             );
           }),
         ],
