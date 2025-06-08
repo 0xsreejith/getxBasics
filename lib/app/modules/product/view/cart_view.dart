@@ -51,6 +51,23 @@ class CartView extends StatelessWidget {
                       trailing: IconButton(
                         icon: Icon(Icons.remove_circle_outline),
                         onPressed: () {
+                          Get.defaultDialog(
+                            title: "Remove Item",
+                            middleText: "Are you sure you want to remove ${item.name} from the cart?",
+                            confirm: ElevatedButton(
+                              onPressed: () {
+                                Get.back();
+                                cartController.removeFromCart(item);
+                              },
+                              child: Text("Yes"),
+                            ),
+                            cancel: ElevatedButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text("No"),
+                            ),
+                          );
                           cartController.removeFromCart(item);
                         },
                       ),

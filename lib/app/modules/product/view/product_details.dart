@@ -21,11 +21,49 @@ class ProductDetails extends StatelessWidget {
             Text(product.name, style: const TextStyle(fontSize: 25)),
             Text(product.price.toString()),
             IconButton(
+                    onPressed: () {
+                      cartController.addToCart(product);
+                      Get.snackbar(
+                        'New Item added',
+                        '${product.name} added your cart',
+                        snackPosition: SnackPosition.BOTTOM,
+                        duration: const Duration(seconds: 2),
+                      );
+                    },
+                    icon: Icon(Icons.add_shopping_cart))
+                .icon,
+            MaterialButton(
                 onPressed: () {
-                  cartController.addToCart(product);
-                  Get.snackbar('New Item added', '${product.name} added your cart');
+                  Get.bottomSheet(
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min, 
+                        children: [
+                          Text("More Actions", style: TextStyle(fontSize: 20)),
+                          const SizedBox(height: 10),
+                          ListTile(
+                            leading: Icon(Icons.share),
+                            title: Text("Share"),
+                            onTap: () {
+                              // Implement share functionality
+                              Get.back();
+                            },
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.favorite),
+                            title: Text("Add to Favorites"),
+                            onTap: () {
+                              // Implement add to favorites functionality
+                              Get.back();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
-                icon: Icon(Icons.add_shopping_cart))
+                child: Text("More Actions"))
           ],
         ),
       ),
